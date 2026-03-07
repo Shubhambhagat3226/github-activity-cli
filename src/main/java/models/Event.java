@@ -3,6 +3,7 @@ public class Event {
     private String type;
     private Repo repo;
     private Payload payload;
+    private String created_at;
 
     public Event() {}
 
@@ -18,6 +19,10 @@ public class Event {
         return this.payload;
     }
 
+    public String getCreated_at() {
+        return created_at;
+    }
+    
     public void setType(String type) {
         this.type = type;
     }
@@ -28,5 +33,9 @@ public class Event {
 
     public void setPayload(Payload payload) {
         this.payload = payload;
+    }
+
+    public void setCreated_at(String created_at) {
+        this.created_at = created_at;
     }
 }
