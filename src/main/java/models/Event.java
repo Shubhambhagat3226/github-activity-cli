@@ -1,3 +1,5 @@
+package models;
+
 public class Event {
 
     private String type;
@@ -22,7 +24,7 @@ public class Event {
     public String getCreated_at() {
         return created_at;
     }
-    
+
     public void setType(String type) {
         this.type = type;
     }

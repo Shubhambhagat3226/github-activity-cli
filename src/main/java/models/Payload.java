@@ -1,3 +1,5 @@
+package models;
+
 public class Payload {
 
     private int size;
