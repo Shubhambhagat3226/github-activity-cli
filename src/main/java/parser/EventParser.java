@@ -1,6 +1,6 @@
 package parser;
 
-import com.fasterxml.jackson.databind.ObjectMapper;;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import models.Event;
 
 public class EventParser {
