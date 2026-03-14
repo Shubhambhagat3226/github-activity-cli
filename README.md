@@ -1,6 +1,6 @@
 # GitHub User Activity CLI
 
-This is a Command Line Interface (CLI) built with Java that fetches and displays the recent public activity of a GitHub user using the GitHub API.
+This is a Command Line Interface (CLI) built with Java and maven that fetches and displays the recent public activity of a GitHub user using the GitHub API.
 
 This project is a solution for the [GitHub User Activity challenge](https://roadmap.sh/projects/github-user-activity) from **roadmap.sh**.
 
@@ -12,14 +12,16 @@ This project is a solution for the [GitHub User Activity challenge](https://road
 
 ## Project Structure
 ```
-src/main/java
+src/main/java/com/githubactivity
 ├── GithubActivity.java        # Main entry point
 ├── service/                   # API request handling
 ├── parser/                    # JSON to Java object logic
 ├── models/                    # Data objects (Event, Repo, Payload)
 └── formatter/                 # CLI output formatting
 ```
-
+## Requirements
+- Java 21
+- Maven 3.9+
 
 ## How to Run
 
@@ -29,15 +31,23 @@ git clone https://github.com/Shubhambhagat3226/github-activity-cli.git
 cd github-activity-cli
 ```
 
-### 2. Compile the Java files
-Make sure you include the Jackson library in the classpath during compilation:
+### 2. Build the Project
 ```bash
-javac -cp "lib/*" src/main/java/GithubActivity.java src/main/java/formatter/*.java src/main/java/models/*.java src/main/java/parser/*.java src/main/java/service/*.java
+mvn clean package
+```
+After building, Maven will generate a runnable JAR inside:
+```bash
+target/github-activity-cli-2.0-SNAPSHOT.jar
 ```
 
-### 3. Run the application
+### 3. Run the CLI
 ```bash
-java -cp ".:lib/*:src/main/java" GithubActivity <username>
+java -jar target/github-activity-cli-2.0-SNAPSHOT.jar <github-username>
+```
+
+#### Example:
+```bash
+java -jar target/github-activity-cli-2.0-SNAPSHOT.jar torvalds
 ```
 
 #### Example output:
@@ -50,5 +60,4 @@ java -cp ".:lib/*:src/main/java" GithubActivity <username>
 ## Future Improvements
 - Pagination support for older events.
 - Event filtering (e.g., show only Push events).
-- Integration with Maven for better dependency management.
 - More detailed commit information for Push events.
