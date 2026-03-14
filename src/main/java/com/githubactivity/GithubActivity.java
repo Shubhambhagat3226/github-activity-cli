@@ -1,7 +1,9 @@
-import formatter.EventFormatter;
-import models.Event;
-import parser.EventParser;
-import service.GithubService;
+package com.githubactivity;
+
+import com.githubactivity.formatter.EventFormatter;
+import com.githubactivity.models.Event;
+import com.githubactivity.parser.EventParser;
+import com.githubactivity.service.GithubService;
 
 public class GithubActivity {
 

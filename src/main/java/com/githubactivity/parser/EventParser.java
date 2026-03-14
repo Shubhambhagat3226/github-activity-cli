@@ -1,7 +1,7 @@
-package parser;
+package com.githubactivity.parser;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import models.Event;
+import com.githubactivity.models.Event;
 
 public class EventParser {
 

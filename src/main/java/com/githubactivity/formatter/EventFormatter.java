@@ -1,6 +1,6 @@
-package formatter;
+package com.githubactivity.formatter;
 
-import models.Event;
+import com.githubactivity.models.Event;
 
 import java.time.Duration;
 import java.time.Instant;
