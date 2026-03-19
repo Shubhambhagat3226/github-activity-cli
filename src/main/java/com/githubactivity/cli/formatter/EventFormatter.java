@@ -1,13 +1,14 @@
-package com.githubactivity.formatter;
+package com.githubactivity.cli.formatter;
 
-import com.githubactivity.models.Event;
+import com.githubactivity.core.model.Event;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.List;
 
 public class EventFormatter {
 
-    public static void printEvents(Event[] events) {
+    public static void printEvents(List<Event> events) {
 
         for (Event event : events) {
 
