@@ -1,4 +1,4 @@
-package com.githubactivity.models;
+package com.githubactivity.core.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

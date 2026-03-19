@@ -1,11 +1,13 @@
-package com.githubactivity;
+package com.githubactivity.cli;
 
-import com.githubactivity.formatter.EventFormatter;
-import com.githubactivity.models.Event;
-import com.githubactivity.parser.EventParser;
-import com.githubactivity.service.GithubService;
+import java.util.List;
 
-public class GithubActivity {
+import com.githubactivity.cli.formatter.EventFormatter;
+import com.githubactivity.core.model.Event;
+import com.githubactivity.core.service.GitHubService;
+import com.githubactivity.core.service.GitHubServiceImpl;
+
+public class GitubActivity {
 
     public static void main(String[] args) throws Exception{
 
@@ -18,8 +20,8 @@ public class GithubActivity {
 
         try {
 
-            String json = GithubService.fetchEvents(username);
-            Event[] events = EventParser.parse(json);
+            GitHubService service = new GitHubServiceImpl();
+            List<Event> events = service.fetchEvents(username);
             EventFormatter.printEvents(events);
 
         } catch (Exception e) {
