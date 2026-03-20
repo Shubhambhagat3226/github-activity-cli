@@ -21,7 +21,7 @@ public class EventParser {
         try {
             return MAPPER.readValue(json, new TypeReference<List<Event>>(){});
         } catch (JsonProcessingException e) {
-            throw new ApiException("Data format error: Unable to read GitHub activity.");
+            throw new ApiException("Failed to parse response");
         }
     }
 }
