@@ -34,10 +34,10 @@ public class GitHubActivity {
 
             events = processor.filterByType(events, type);
             events = processor.limit(events, limit);
-            
+
             formatter.printEvents(events);
 
-        } catch (UserNotFoundException e) {
+        } catch (IllegalArgumentException | UserNotFoundException e) {
             System.out.println("❌ " + e.getMessage());
         } catch (RateLimitException e) {
             System.out.println("⚠️ " + e.getMessage());
