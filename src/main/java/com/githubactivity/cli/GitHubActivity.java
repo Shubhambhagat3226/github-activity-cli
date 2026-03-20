@@ -9,6 +9,7 @@ import com.githubactivity.core.exception.ApiException;
 import com.githubactivity.core.exception.RateLimitException;
 import com.githubactivity.core.exception.UserNotFoundException;
 import com.githubactivity.core.model.Event;
+import com.githubactivity.core.processor.EventProcessor;
 import com.githubactivity.core.service.GitHubService;
 import com.githubactivity.core.service.GitHubServiceImpl;
 
@@ -20,6 +21,7 @@ public class GitHubActivity {
         GitHubService service = new GitHubServiceImpl();
         EventFormatter formatter = new EventFormatter();
         CliArgumentsParser parser = new CliArgumentsParser();
+        EventProcessor processor = new EventProcessor();
 
         CliArguments cliArgs = parser.parse(args);
         String username = cliArgs.getUsername();
@@ -29,6 +31,10 @@ public class GitHubActivity {
         try {
            
             List<Event> events = service.fetchEvents(username);
+
+            events = processor.filterByType(events, type);
+            events = processor.limit(events, limit);
+            
             formatter.printEvents(events);
 
         } catch (UserNotFoundException e) {
