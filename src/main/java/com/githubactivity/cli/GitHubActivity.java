@@ -10,7 +10,7 @@ import com.githubactivity.core.model.Event;
 import com.githubactivity.core.service.GitHubService;
 import com.githubactivity.core.service.GitHubServiceImpl;
 
-public class GitubActivity {
+public class GitHubActivity {
 
     private static final GitHubService service = new GitHubServiceImpl();
     private static final EventFormatter formatter = new EventFormatter();
