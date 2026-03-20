@@ -8,7 +8,7 @@ import java.util.List;
 
 public class EventFormatter {
 
-    public static void printEvents(List<Event> events) {
+    public void printEvents(List<Event> events) {
 
         for (Event event : events) {
 
