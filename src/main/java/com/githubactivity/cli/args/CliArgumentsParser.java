@@ -11,7 +11,11 @@ public class CliArgumentsParser {
             } else if (arg.startsWith("--type=")) {
                 cliArgs.setType(arg.split("=")[1]);
             } else if (arg.startsWith("--limit=")) {
-                cliArgs.setLimit(Integer.parseInt(arg.split("=")[1]));
+                try {
+                    cliArgs.setLimit(Integer.parseInt(arg.split("=")[1]));
+                } catch (NumberFormatException e) {
+                    throw new IllegalArgumentException("Invalid limit value. Must be a number.");
+                }
             }
         }
 
