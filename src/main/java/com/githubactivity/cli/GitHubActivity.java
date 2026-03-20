@@ -2,6 +2,8 @@ package com.githubactivity.cli;
 
 import java.util.List;
 
+import com.githubactivity.cli.args.CliArguments;
+import com.githubactivity.cli.args.CliArgumentsParser;
 import com.githubactivity.cli.formatter.EventFormatter;
 import com.githubactivity.core.exception.ApiException;
 import com.githubactivity.core.exception.RateLimitException;
@@ -12,17 +14,17 @@ import com.githubactivity.core.service.GitHubServiceImpl;
 
 public class GitHubActivity {
 
-    private static final GitHubService service = new GitHubServiceImpl();
-    private static final EventFormatter formatter = new EventFormatter();
-
+    
     public static void main(String[] args) throws Exception{
+        
+        GitHubService service = new GitHubServiceImpl();
+        EventFormatter formatter = new EventFormatter();
+        CliArgumentsParser parser = new CliArgumentsParser();
 
-        if (args.length == 0) {
-            System.out.println("Usage: java -cp \".:lib/*:src/main/java\" GithubActivity <username>");
-            return;
-        }
-
-        String username = args[0];
+        CliArguments cliArgs = parser.parse(args);
+        String username = cliArgs.getUsername();
+        String type = cliArgs.getType();
+        Integer limit = cliArgs.getLimit();
 
         try {
            
