@@ -12,7 +12,7 @@ public class EventParser {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
-    public static List<Event> parse(String json) throws ApiException {
+    public List<Event> parse(String json) throws ApiException {
 
         if (json == null || json.isBlank()) {
             throw new ApiException("Received empty response from GitHub");

@@ -38,7 +38,7 @@ public class GitHubServiceImpl implements GitHubService {
                 throw new ApiException("Unexpected API error: " + status);
             }
             
-            return EventParser.parse(response.body());
+            return new EventParser().parse(response.body());
         } catch (IOException | InterruptedException e) {
             throw new ApiException("Network failure while reaching GitHub: " + e.getMessage());
         }
