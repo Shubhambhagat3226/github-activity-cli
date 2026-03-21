@@ -15,11 +15,10 @@ import com.githubactivity.core.parser.EventParser;
 
 public class GitHubServiceImpl implements GitHubService {
     
-    private final HttpClient client = HttpClient.newHttpClient();
-
     @Override
     public List<Event> fetchEvents(String username) throws ApiException {
         String url = "https://api.github.com/users/" + username + "/events";
+        HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .header("User-Agent", "github-activity-cli")
