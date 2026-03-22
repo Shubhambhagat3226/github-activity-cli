@@ -20,33 +20,34 @@ public class EventFormatter {
             switch (type) {
 
                 case "PushEvent":
-                    int commits = 0;
+                    Integer commits = null;
 
-                    if (event.getPayload() != null) {
+                    if (event.getPayload() != null && event.getPayload().getSize() > 0) {
                         commits = event.getPayload().getSize();
                     }
 
-                    System.out.println(
-                            "- " + timeAgo + " → Pushed " + commits + " commits to " + repo
-                    );
+                    if (commits != null) {
+                        System.out.println(
+                                "- " + timeAgo + " → Pushed " + commits + " commits to " + repo);
+                    } else {
+                        System.out.println(
+                                "- " + timeAgo + " → Pushed commits to " + repo);
+                    }
                     break;
 
                 case "WatchEvent":
                     System.out.println(
-                            "- " + timeAgo + " → Starred " + repo
-                    );
+                            "- " + timeAgo + " → Starred " + repo);
                     break;
 
                 case "CreateEvent":
                     System.out.println(
-                            "- " + timeAgo + " → Created repository or branch in " + repo
-                    );
+                            "- " + timeAgo + " → Created repository or branch in " + repo);
                     break;
 
                 default:
                     System.out.println(
-                            "- " + timeAgo + " → Performed " + type + " on " + repo
-                    );
+                            "- " + timeAgo + " → Performed " + type + " on " + repo);
             }
         }
     }
