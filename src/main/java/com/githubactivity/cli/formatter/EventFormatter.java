@@ -59,7 +59,7 @@ public class EventFormatter {
                             .replaceAll("([A-Z])", " $1")
                             .trim();
 
-                    System.out.println("- " + timeAgo + " → "
+                    System.out.println("- " + timeAgo + " -> "
                             + readableType + " on " + repo);
             }
         }
