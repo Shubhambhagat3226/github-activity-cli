@@ -17,6 +17,10 @@ public class EventFormatter {
 
             String timeAgo = getTimeAgo(event.getCreated_at());
 
+            System.out.println();
+            System.out.println("GitHub Activity");
+            System.out.println("----------------------");
+
             switch (type) {
 
                 case "PushEvent":
