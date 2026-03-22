@@ -4,7 +4,7 @@
   <groupId>com.githubactivity</groupId>
   <artifactId>github-activity-cli</artifactId>
   <name>github-activity-cli</name>
-  <version>3.0.0</version>
+  <version>3.1.0</version>
   <build>
     <plugins>
       <plugin>
@@ -51,8 +51,8 @@
     </dependency>
   </dependencies>
   <properties>
-    <maven.compiler.source>21</maven.compiler.source>
-    <maven.compiler.target>21</maven.compiler.target>
     <maven.compiler.release>21</maven.compiler.release>
+    <maven.compiler.target>21</maven.compiler.target>
+    <maven.compiler.source>21</maven.compiler.source>
   </properties>
 </project>
