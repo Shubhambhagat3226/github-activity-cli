@@ -61,7 +61,7 @@ public class GitHubActivity {
     private static void printHelp() {
         System.out.println("""
                 Usage:
-                  github-activity --user=<username> [options]
+                  github-activity.bat --user=<username> [options]
 
                 Options:
                   --user=<username>     GitHub username (required)
