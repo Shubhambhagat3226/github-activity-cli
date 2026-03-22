@@ -26,26 +26,38 @@ cd github-activity-cli
 ```
 
 ### 2. Build the Project
+
+Using Maven:
 ```bash
 mvn clean package
 ```
-After building, Maven will generate a runnable JAR inside:
+
+Using Maven Wrapper (no Maven install needed):
 ```bash
-target/github-activity-cli-3.0.0.jar
+./mvnw clean package
 ```
 
 ### 3. Run the CLI
+Using JAR
 ```bash
-java -jar target/github-activity-cli-3.0.0.jar --user=<username>
+java -jar target/github-activity-cli-3.1.0.jar --user=<username>
+```
+
+Using CLI Script (Windows)
+```bash
+github-activity.bat --user=<username>
 ```
 
 #### Example:
 ```bash
 # Basic usage
-java -jar target/github-activity-cli-3.0.0.jar --user=shubhambhagat3226
+github-activity.bat --user=shubhambhagat3226
 
 # Advanced Filtering
-java -jar target/github-activity-cli-3.0.0.jar --user=torvalds --type=PushEvent --limit=5
+github-activity.bat --user=shubhambhagat3226 --type=PushEvent --limit=5
+
+# Show help 
+github-activity.bat --help
 ```
 
 #### Example output:
@@ -84,7 +96,7 @@ src/main/java/com/githubactivity
 
 ## Requirements
 - Java 21
-- Maven 3.9+
+- (Optional) Maven — or use Maven Wrapper (mvnw)
 
 
 ## Future Improvements
