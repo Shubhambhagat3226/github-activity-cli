@@ -11,6 +11,7 @@ This project is a solution for the [GitHub User Activity challenge](https://road
   - `--user=<username>`
   - `--type=<eventType>`
   - `--limit=<number>`
+  - `--help`
 - Event filtering and limiting (processor layer)
 - Clean layered architecture (core, cli separation)
 - Custom exception handling (API, validation, rate limit)
@@ -40,28 +41,30 @@ Using Maven Wrapper (no Maven install needed):
 ### 3. Run the CLI
 Using JAR
 ```bash
-java -jar target/github-activity-cli-3.1.0.jar --user=<username>
+java -jar target/github-activity-cli-3.1.1.jar --user=<username>
 ```
 
 Using CLI Script (Windows)
 ```bash
-github-activity.bat --user=<username>
+./github-activity.bat --user=<username>
 ```
 
 #### Example:
 ```bash
 # Basic usage
-github-activity.bat --user=shubhambhagat3226
+./github-activity.bat --user=shubhambhagat3226
 
 # Advanced Filtering
-github-activity.bat --user=shubhambhagat3226 --type=PushEvent --limit=5
+./github-activity.bat --user=shubhambhagat3226 --type=PushEvent --limit=5
 
 # Show help 
-github-activity.bat --help
+./github-activity.bat --help
 ```
 
 #### Example output:
 ```
+GitHub Activity
+----------------------
 - 2 days ago → Pushed 3 commits to username/repository
 - 5 days ago → Created repository username/repository
 - 16 days ago → Starred owner/repository
@@ -97,6 +100,7 @@ src/main/java/com/githubactivity
 ## Requirements
 - Java 21
 - (Optional) Maven — or use Maven Wrapper (mvnw)
+- JAVA_HOME environment variable must be set
 
 
 ## Future Improvements
