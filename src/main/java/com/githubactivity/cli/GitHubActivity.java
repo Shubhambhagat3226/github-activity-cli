@@ -15,9 +15,13 @@ import com.githubactivity.core.service.GitHubServiceImpl;
 
 public class GitHubActivity {
 
-    
-    public static void main(String[] args) throws Exception{
-        
+    public static void main(String[] args) throws Exception {
+
+        if (args.length == 0 || containsHelp(args)) {
+            printHelp();
+            return;
+        }
+
         GitHubService service = new GitHubServiceImpl();
         EventFormatter formatter = new EventFormatter();
         CliArgumentsParser parser = new CliArgumentsParser();
@@ -29,7 +33,7 @@ public class GitHubActivity {
         Integer limit = cliArgs.getLimit();
 
         try {
-           
+
             List<Event> events = service.fetchEvents(username);
 
             events = processor.filterByType(events, type);
@@ -45,4 +49,26 @@ public class GitHubActivity {
             System.out.println("Error: " + e.getMessage());
         }
     }
+
+    private static boolean containsHelp(String[] args) {
+        for (String arg : args) {
+            if (arg.equals("--help"))
+                return true;
+        }
+        return false;
+    }
+
+    private static void printHelp() {
+        System.out.println("""
+                Usage:
+                  github-activity --user=<username> [options]
+
+                Options:
+                  --user=<username>     GitHub username (required)
+                  --type=<eventType>    Filter by event type
+                  --limit=<number>      Limit number of events
+                  --help                Show this help message
+                """);
+    }
+
 }
