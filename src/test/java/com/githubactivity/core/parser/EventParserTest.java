@@ -1,4 +1,4 @@
-package com.githubactivity.parser;
+package com.githubactivity.core.parser;
 
 import java.util.List;
 

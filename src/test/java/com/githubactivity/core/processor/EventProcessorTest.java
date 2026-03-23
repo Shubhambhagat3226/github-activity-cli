@@ -1,4 +1,4 @@
-package com.githubactivity.processor;
+package com.githubactivity.core.processor;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
