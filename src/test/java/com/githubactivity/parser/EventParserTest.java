@@ -1,5 +1,4 @@
-package java.com.githubactivity.parser;
-
+package com.githubactivity.parser;
 
 import java.util.List;
 
