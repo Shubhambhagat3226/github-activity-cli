@@ -8,21 +8,21 @@ import java.util.List;
 
 public class EventFormatter {
 
-    public void printEvents(List<Event> events) {
+    public String formatEvents(List<Event> events) {
 
         if (events == null || events.isEmpty()) {
-            System.out.println("No activity found.");
-            return;
+            return "No activity found.";
         }
 
-        System.out.println("GitHub Activity");
-        System.out.println("----------------------");
+        StringBuilder output = new StringBuilder();
+
+        output.append("GitHub Activity");
+        output.append("----------------------\n");
 
         for (Event event : events) {
 
             String repo = event.getRepo().getName();
             String type = event.getType();
-
             String timeAgo = getTimeAgo(event.getCreated_at());
 
             switch (type) {
@@ -35,22 +35,23 @@ public class EventFormatter {
                     }
 
                     if (commits != null) {
-                        System.out.println(
-                                "- " + timeAgo + " -> Pushed " + commits + " commits to " + repo);
+                        output.append("- ").append(timeAgo)
+                                .append(" -> Pushed ").append(commits)
+                                .append(" commits to ").append(repo);
                     } else {
-                        System.out.println(
-                                "- " + timeAgo + " -> Pushed commits to " + repo);
+                        output.append("- ").append(timeAgo)
+                                .append(" -> Pushed commits to ").append(repo);
                     }
                     break;
 
                 case "WatchEvent":
-                    System.out.println(
-                            "- " + timeAgo + " -> Starred " + repo);
+                    output.append("- ").append(timeAgo)
+                            .append(" -> Starred ").append(repo);
                     break;
 
                 case "CreateEvent":
-                    System.out.println(
-                            "- " + timeAgo + " -> Created repository or branch in " + repo);
+                    output.append("- ").append(timeAgo)
+                            .append(" -> Created repository or branch in ").append(repo);
                     break;
 
                 default:
@@ -59,10 +60,13 @@ public class EventFormatter {
                             .replaceAll("([A-Z])", " $1")
                             .trim();
 
-                    System.out.println("- " + timeAgo + " -> "
-                            + readableType + " on " + repo);
+                    output.append("- ").append(timeAgo)
+                            .append(" -> ").append(readableType)
+                            .append(" on ").append(repo);
             }
         }
+
+        return output.toString();
     }
 
     private static String getTimeAgo(String timestamp) {

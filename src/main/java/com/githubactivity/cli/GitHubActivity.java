@@ -55,7 +55,8 @@ public class GitHubActivity {
             events = processor.filterByType(events, cliArgs.getType());
             events = processor.limit(events, cliArgs.getLimit());
 
-            formatter.printEvents(events);
+            String result = formatter.formatEvents(events);
+            System.out.println(result);
 
         } catch (IllegalArgumentException | UserNotFoundException e) {
             System.out.println("❌ " + e.getMessage());
