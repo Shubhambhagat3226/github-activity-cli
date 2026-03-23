@@ -15,29 +15,45 @@ import com.githubactivity.core.service.GitHubServiceImpl;
 
 public class GitHubActivity {
 
+    private final GitHubService service;
+    private final EventFormatter formatter;
+    private final CliArgumentsParser parser;
+
+    public GitHubActivity(GitHubService service,
+                          EventFormatter formatter,
+                          CliArgumentsParser parser) {
+        this.service = service;
+        this.formatter = formatter;
+        this.parser = parser;
+    }
+
     public static void main(String[] args) throws Exception {
+
+        GitHubService service = new GitHubServiceImpl();
+        EventFormatter formatter = new EventFormatter();
+        CliArgumentsParser parser = new CliArgumentsParser();
+
+        GitHubActivity app = new GitHubActivity(service, formatter, parser);
+        app.run(args);
+    }
+
+    public void run(String[] args) {
 
         if (args.length == 0 || containsHelp(args)) {
             printHelp();
             return;
         }
 
-        GitHubService service = new GitHubServiceImpl();
-        EventFormatter formatter = new EventFormatter();
-        CliArgumentsParser parser = new CliArgumentsParser();
         EventProcessor processor = new EventProcessor();
 
         CliArguments cliArgs = parser.parse(args);
-        String username = cliArgs.getUsername();
-        String type = cliArgs.getType();
-        Integer limit = cliArgs.getLimit();
 
         try {
 
-            List<Event> events = service.fetchEvents(username);
+            List<Event> events = service.fetchEvents(cliArgs.getUsername());
 
-            events = processor.filterByType(events, type);
-            events = processor.limit(events, limit);
+            events = processor.filterByType(events, cliArgs.getType());
+            events = processor.limit(events, cliArgs.getLimit());
 
             formatter.printEvents(events);
 
