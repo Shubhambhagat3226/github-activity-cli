@@ -13,11 +13,15 @@ import com.githubactivity.core.processor.EventProcessor;
 import com.githubactivity.core.service.GitHubService;
 import com.githubactivity.core.service.GitHubServiceImpl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class GitHubActivity {
 
     private final GitHubService service;
     private final EventFormatter formatter;
     private final CliArgumentsParser parser;
+    private static final Logger log = LoggerFactory.getLogger(GitHubActivity.class);
 
     public GitHubActivity(GitHubService service,
                           EventFormatter formatter,
@@ -38,18 +42,21 @@ public class GitHubActivity {
     }
 
     public void run(String[] args) {
+        log.info("Application started with args: {}", String.join(" ", args));
 
         if (args.length == 0 || containsHelp(args)) {
+            log.debug("No arguments or --help detected. Showing help menu.");
             printHelp();
             return;
         }
 
         EventProcessor processor = new EventProcessor();
 
-        CliArguments cliArgs = parser.parse(args);
-
         try {
+            CliArguments cliArgs = parser.parse(args);
 
+            log.info("Fetching events for user: {}",
+                    cliArgs.getUsername());
             List<Event> events = service.fetchEvents(cliArgs.getUsername());
 
             events = processor.filterByType(events, cliArgs.getType());
@@ -58,10 +65,13 @@ public class GitHubActivity {
             String result = formatter.formatEvents(events);
             System.out.println(result);
 
-        } catch (IllegalArgumentException | UserNotFoundException e) {
+        } catch (UserNotFoundException e) {
             System.out.println("❌ " + e.getMessage());
         } catch (RateLimitException e) {
             System.out.println("⚠️ " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            log.error("Illegal argument: {}", e.getMessage());
+            System.out.println("Error: " + e.getMessage());
         } catch (ApiException e) {
             System.out.println("Error: " + e.getMessage());
         }
