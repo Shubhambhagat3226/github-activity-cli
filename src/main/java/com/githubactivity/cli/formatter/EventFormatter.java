@@ -64,6 +64,7 @@ public class EventFormatter {
                             .append(" -> ").append(readableType)
                             .append(" on ").append(repo);
             }
+            output.append("\n");
         }
 
         return output.toString();
