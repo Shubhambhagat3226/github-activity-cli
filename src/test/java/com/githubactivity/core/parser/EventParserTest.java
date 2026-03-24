@@ -1,14 +1,15 @@
 package com.githubactivity.core.parser;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
+import com.githubactivity.core.parser.EventParser;
 
 import com.githubactivity.core.exception.ApiException;
 import com.githubactivity.core.model.Event;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class EventParserTest {
     
