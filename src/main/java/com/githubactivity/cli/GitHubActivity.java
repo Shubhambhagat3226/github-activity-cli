@@ -66,14 +66,20 @@ public class GitHubActivity {
             System.out.println(result);
 
         } catch (UserNotFoundException e) {
+            log.error("CLI error - user not found: {}", e.getMessage());
             System.out.println("❌ " + e.getMessage());
         } catch (RateLimitException e) {
+            log.error("CLI error - rate limit exceeded");
             System.out.println("⚠️ " + e.getMessage());
         } catch (IllegalArgumentException e) {
-            log.error("Illegal argument: {}", e.getMessage());
+            log.error("CLI error - invalid input: {}", e.getMessage());
             System.out.println("Error: " + e.getMessage());
         } catch (ApiException e) {
+            log.error("CLI error - API failure: {}", e.getMessage());
             System.out.println("Error: " + e.getMessage());
+        } catch (Exception e) {
+            log.error("Unexpected error occurred", e);
+            System.out.println("❌ Unexpected error occurred");
         }
     }
 

@@ -38,6 +38,8 @@ public class GitHubServiceImpl implements GitHubService {
                     client.send(request, HttpResponse.BodyHandlers.ofString());
             int status = response.statusCode();
 
+            log.debug("GitHub API responded with status code: {}", status);
+
             if (status == 404) {
                 log.error("User not found: {}", username);
                 throw new UserNotFoundException(username);
