@@ -7,7 +7,7 @@
 
   <groupId>com.githubactivity</groupId>
   <artifactId>github-activity-cli</artifactId>
-  <version>3.1.1</version>
+  <version>3.2.0</version>
   <packaging>jar</packaging>
 
   <name>github-activity-cli</name>
