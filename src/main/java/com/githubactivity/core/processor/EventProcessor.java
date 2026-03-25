@@ -1,8 +1,12 @@
 package com.githubactivity.core.processor;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.githubactivity.core.model.DisplayEvent;
 import com.githubactivity.core.model.Event;
 import com.githubactivity.core.model.EventType;
 
@@ -32,5 +36,79 @@ public class EventProcessor {
         return events.stream()
                 .limit(limit)
                 .toList();
+    }
+
+    public List<DisplayEvent> toDisplayEvent(List<Event> events) {
+
+        return  events.stream().map(event -> {
+            String repo = event.getRepo().getName();
+            String type = event.getType();
+            String timeAgo = getTimeAgo(event.getCreated_at());
+
+            String message = null;
+
+            EventType eventType = EventType.from(event.getType());
+
+            switch (eventType) {
+                case PUSH:
+                    Integer commits = null;
+
+                    if (event.getPayload() != null && event.getPayload().getSize() > 0) {
+                        commits = event.getPayload().getSize();
+                    }
+
+                    if (commits != null) {
+                        message = "Pushed " + commits + " commits to " + repo;
+                    } else {
+                        message = "Pushed commits to " + repo;
+                    }
+                    break;
+
+                case WATCH:
+                    message = "Starred " + repo;
+                    break;
+
+                case CREATE:
+                    message = "Created repository or branch in " + repo;
+                    break;
+
+                case UNKNOWN:
+                    String readableType = type
+                            .replace("Event", "")
+                            .replaceAll("([A-Z])", " $1")
+                            .trim();
+
+                    message = readableType + " on " + repo;
+            }
+
+            return new DisplayEvent(message, timeAgo);
+
+        }).toList();
+    }
+
+    private static String getTimeAgo(String timestamp) {
+
+        Instant eventTime = Instant.parse(timestamp);
+        Instant now = Instant.now();
+
+        Duration duration = Duration.between(eventTime, now);
+
+        long hours = duration.toHours();
+        long days = duration.toDays();
+        long minutes = duration.toMinutes();
+
+        if (days > 0) {
+            return days == 1 ? "1 day ago" : days + " days ago";
+        }
+
+        if (hours > 0) {
+            return hours == 1 ? "1 hour ago" : hours + " hours ago";
+        }
+
+        if (minutes > 0) {
+            return minutes == 1 ? "1 minute ago" : minutes + " minutes ago";
+        }
+
+        return "just now";
     }
 }
