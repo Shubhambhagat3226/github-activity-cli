@@ -8,6 +8,7 @@ import com.githubactivity.cli.formatter.EventFormatter;
 import com.githubactivity.core.exception.ApiException;
 import com.githubactivity.core.exception.RateLimitException;
 import com.githubactivity.core.exception.UserNotFoundException;
+import com.githubactivity.core.model.DisplayEvent;
 import com.githubactivity.core.model.Event;
 import com.githubactivity.core.processor.EventProcessor;
 import com.githubactivity.core.service.GitHubService;
@@ -21,14 +22,17 @@ public class GitHubActivity {
     private final GitHubService service;
     private final EventFormatter formatter;
     private final CliArgumentsParser parser;
+    private final EventProcessor processor;
+
     private static final Logger log = LoggerFactory.getLogger(GitHubActivity.class);
 
     public GitHubActivity(GitHubService service,
                           EventFormatter formatter,
-                          CliArgumentsParser parser) {
+                          CliArgumentsParser parser, EventProcessor processor) {
         this.service = service;
         this.formatter = formatter;
         this.parser = parser;
+        this.processor = processor;
     }
 
     public static void main(String[] args) throws Exception {
@@ -36,8 +40,14 @@ public class GitHubActivity {
         GitHubService service = new GitHubServiceImpl();
         EventFormatter formatter = new EventFormatter();
         CliArgumentsParser parser = new CliArgumentsParser();
+        EventProcessor processor = new EventProcessor();
 
-        GitHubActivity app = new GitHubActivity(service, formatter, parser);
+        GitHubActivity app = new GitHubActivity(
+                service,
+                formatter,
+                parser,
+                processor
+        );
         app.run(args);
     }
 
@@ -50,7 +60,6 @@ public class GitHubActivity {
             return;
         }
 
-        EventProcessor processor = new EventProcessor();
 
         try {
             CliArguments cliArgs = parser.parse(args);
@@ -62,7 +71,9 @@ public class GitHubActivity {
             events = processor.filterByType(events, cliArgs.getType());
             events = processor.limit(events, cliArgs.getLimit());
 
-            String result = formatter.formatEvents(events);
+            List<DisplayEvent> displayEvent = processor.toDisplayEvent(events);
+
+            String result = formatter.formatEvents(displayEvent);
             System.out.println(result);
 
         } catch (UserNotFoundException e) {
