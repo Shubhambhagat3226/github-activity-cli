@@ -71,9 +71,9 @@ public class GitHubActivity {
             events = processor.filterByType(events, cliArgs.getType());
             events = processor.limit(events, cliArgs.getLimit());
 
-            List<DisplayEvent> displayEvent = processor.toDisplayEvent(events);
+            List<DisplayEvent> displayEvents = processor.toDisplayEvents(events);
 
-            String result = formatter.formatEvents(displayEvent);
+            String result = formatter.formatEvents(displayEvents);
             System.out.println(result);
 
         } catch (UserNotFoundException e) {

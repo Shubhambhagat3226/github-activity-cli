@@ -38,7 +38,7 @@ public class EventProcessor {
                 .toList();
     }
 
-    public List<DisplayEvent> toDisplayEvent(List<Event> events) {
+    public List<DisplayEvent> toDisplayEvents(List<Event> events) {
 
         return  events.stream().map(event -> {
             String repo = event.getRepo().getName();

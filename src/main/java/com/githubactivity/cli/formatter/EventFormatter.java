@@ -14,8 +14,8 @@ public class EventFormatter {
 
         StringBuilder output = new StringBuilder();
 
-        output.append("GitHub Activity\n");
-        output.append("----------------------\n");
+        output.append("GitHub Activity\n")
+                .append("----------------------\n");
 
         for (DisplayEvent event : events) {
             output.append("- ")
